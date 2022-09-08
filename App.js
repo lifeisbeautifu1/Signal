@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { LoginScreen } from './screens';
+import { LoginScreen, RegisterScreen, HomeScreen } from './screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,9 +17,19 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={globalScreenOptions}>
         <Stack.Screen
-          options={{ title: 'Lets Sign In' }}
+          options={{ title: 'Login' }}
           name="Login"
           component={LoginScreen}
+        />
+        <Stack.Screen
+          options={{ title: 'Register' }}
+          name="Register"
+          component={RegisterScreen}
+        />
+        <Stack.Screen
+          options={{ title: 'Home' }}
+          name="Home"
+          component={HomeScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
