@@ -1,24 +1,67 @@
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import { Avatar } from '@rneui/base';
+import { useLayoutEffect } from 'react';
+import { AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 
-const HomeScreen = () => {
-  useEffect(() => {
-    console.log('hello');
-  }, []);
+import { CustomListItem } from '../components';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+
+const HomeScreen = ({ navigation }) => {
+  const signOutUser = async () => {
+    await signOut(auth);
+    navigation.replace('Login');
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Signal',
+      headerStyle: { backgroundColor: '#fff' },
+      headerTitleStyle: { color: 'black' },
+      headerTintColor: 'black',
+      headerLeft: () => (
+        <View>
+          <TouchableOpacity onPress={signOutUser}>
+            <Avatar
+              rounded
+              source={{
+                uri: auth?.currentUser?.photoURL,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      ),
+      headerRight: () => (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            width: 80,
+          }}
+        >
+          <TouchableOpacity style={{ marginRight: 20 }} activeOpacity={0.5}>
+            <AntDesign name="camera" size={20} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('AddChat')}
+            activeOpacity={0.5}
+          >
+            <SimpleLineIcons name="pencil" size={20} color="black" />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }, [navigation]);
   return (
     <SafeAreaView>
-      <StatusBar style="light" />
       <ScrollView>
-        <Text>HomeScreen</Text>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit aperiam
-          blanditiis modi, velit repellendus fuga alias delectus quas dolorum
-          quibusdam! Beatae ducimus illum consectetur veritatis harum nisi omnis
-          impedit suscipit unde vel repellendus rerum, doloremque nobis fugiat
-          iste enim recusandae porro! Unde vero adipisci iure expedita, tenetur
-          ex dolore asperiores.
-        </Text>
+        <CustomListItem />
       </ScrollView>
     </SafeAreaView>
   );
