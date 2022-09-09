@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -14,3 +15,11 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 export const auth = getAuth();
+
+export const db = getFirestore();
+
+export const chatsCol = collection(db, 'chats');
+
+// getDocs(chats)
+//   .then((snapshot) => console.log(snapshot))
+//   .catch((err) => console.log(err));

@@ -2,7 +2,13 @@ import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { LoginScreen, RegisterScreen, HomeScreen } from './screens';
+import {
+  LoginScreen,
+  RegisterScreen,
+  HomeScreen,
+  AddChatScreen,
+  ChatScreen,
+} from './screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +36,16 @@ export default function App() {
           options={{ title: 'Home' }}
           name="Home"
           component={HomeScreen}
+        />
+        <Stack.Screen
+          options={{ title: 'Create Chat' }}
+          name="AddChat"
+          component={AddChatScreen}
+        />
+        <Stack.Screen
+          options={{ title: 'Chat' }}
+          name="Chat"
+          component={ChatScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
